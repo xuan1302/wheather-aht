@@ -12,15 +12,14 @@ function Dashboard(props) {
         SetTab(data)
     }
 
-    const [weather, setWeather] = useState({});
-    console.log(weather)
+    const [hour, setHour] = useState({});
 
     useEffect(() => {
         (
             async () => {
                 try {
-                    const data = await weatherApi.default();
-                    setWeather(data)
+                    const { current, daily, hourly } = await weatherApi.defaultWeather();
+                    setHour(hourly)
                 } catch (error) {
                     console.log()
                 }
@@ -48,7 +47,7 @@ function Dashboard(props) {
 
                 {
                     tab === 'hour' && (
-                        <Hour />
+                        <Hour dataHour={hour} />
                     )
                 }
             </div>
