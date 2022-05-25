@@ -1,0 +1,48 @@
+#root {
+    align-items: center;
+    background-color: #d6d7da;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    position: relative;
+}
+.container{
+    height: 90vh;
+    overflow: hidden;
+    position: absolute;
+    max-width: 1320px;
+    width: 100%;
+}
+.dashboard-weather{
+    display: flex;
+    height: 100%;
+    .left-sidebar{
+        width: 25%;
+        background: #fff;
+        padding:1.5rem;
+    }
+    .right-content{
+        width: 75%;
+        background-color: rgb(246, 246, 248);
+        padding:1.5rem;
+    }
+}
+.main-menu{
+    ul{
+        margin: 0;
+        list-style: none;
+        padding: 0;
+        li{
+            display: inline-block;
+            color: #6c757d;
+            cursor: pointer;
+            margin:0.5rem;
+        }
+        li.active{
+            font-weight: bold;
+            color: #000;
+            border-bottom:2px solid #000;
+            padding-bottom:3px;
+        }
+    }
+}
