@@ -5,21 +5,23 @@ import Week from './Week';
 import Hour from './Hour';
 import LeftSidebar from '../components/leftSidebar/LeftSidebar';
 import weatherApi from '../api/weatherApi';
+import { useDispatch } from 'react-redux';
+import { fetchDataWeather } from '../app/weatherSlice';
 
 function Dashboard(props) {
     const [tab, SetTab] = useState('today')
     const handleChangeTab = (data) => {
         SetTab(data)
     }
+    const dispatch = useDispatch();
 
-    const [hour, setHour] = useState({});
 
     useEffect(() => {
         (
             async () => {
                 try {
-                    const { current, daily, hourly } = await weatherApi.defaultWeather();
-                    setHour(hourly)
+                    const data = await weatherApi.defaultWeather(21.0245, 105.8412);
+                    dispatch(fetchDataWeather(data))
                 } catch (error) {
                     console.log()
                 }
@@ -47,7 +49,7 @@ function Dashboard(props) {
 
                 {
                     tab === 'hour' && (
-                        <Hour dataHour={hour} />
+                        <Hour />
                     )
                 }
             </div>
