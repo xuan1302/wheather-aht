@@ -18,10 +18,13 @@ const weatherSlice = createSlice({
         },
         setNameCity(state, action) {
             state.nameCity = action.payload;
-        }
+        },
+        // setErrorSearch(state, action) {
+        //     state.error = 'Lỗi';
+        // }
     },
 });
 
 const { actions, reducer } = weatherSlice;
-export const { fetchDataWeather, searchByLocation, setNameCity } = actions;
+export const { fetchDataWeather, searchByLocation, setNameCity, setErrorSearch } = actions;
 export default reducer;

@@ -3,33 +3,55 @@ import { useDispatch, useSelector } from 'react-redux';
 import imgTT from '../../asset/images/download.png'
 import imgBg from '../../asset/images/vector.png'
 import moment from 'moment';
-import { searchByLocation, setNameCity } from '../../app/weatherSlice';
+import { searchByLocation, setErrorSearch, setNameCity } from '../../app/weatherSlice';
 import weatherApi from '../../api/weatherApi';
+// const API_APPID = process.env.REACT_APP_ID_WEATHER;
 
 function LeftSidebar(props) {
 
     const [locationSearch, setLocationSearch] = useState('');
-    const [location, setLocation] = useState()
+    const [nameLocal, setNameLocal] = useState('Ha Noi');
+    const [latLon, setLatLon] = useState(
+        { lon: 105.8412, lat: 21.0245 }
+    )
     const handleTextChange = (e) => {
         setLocationSearch(e.target.value)
     }
     const dispatch = useDispatch();
     const nameCity = useSelector(state => state.weather.nameCity);
     const data = useSelector(state => state.weather.data);
-    // useEffect(() => {
-    //     (
-    //         async () => {
-    //             try {
-    //                 const dataSearch = await weatherApi.searchLocation(locationSearch);
-    //                 console.log(dataSearch)
-    //                 // dispatch(searchByLocation(dataSearch))
-    //                 dispatch(setNameCity(locationSearch))
-    //             } catch (error) {
-    //                 console.log()
-    //             }
-    //         }
-    //     )();
-    // }, [])
+    // const handleGetLatLon = (value) => {
+    //     fetch(`https://api.openweathermap.org/data/2.5//weather?q=${value}&units=metric&APPID=${API_APPID}`)
+    //         .then(response => response.json())
+    //         .then(item => setLatLon(item.coord));
+    // }
+    useEffect(() => {
+        (
+            async () => {
+                try {
+                    const { coord } = await weatherApi.searchLocation(nameLocal);
+                    console.log(coord)
+                    setLatLon(coord)
+                } catch (error) {
+                    console.log()
+                    // dispatch(setErrorSearch)
+                }
+            }
+        )();
+    }, [nameLocal])
+
+    useEffect(() => {
+        (
+            async () => {
+                try {
+                    const dataSearch = await weatherApi.defaultWeather(latLon.lat, latLon.lon);
+                    dispatch(searchByLocation(dataSearch))
+                } catch (error) {
+                    console.log()
+                }
+            }
+        )();
+    }, [latLon])
     return (
         <div className='wrap'>
             <form className="mb-3">
@@ -38,7 +60,8 @@ function LeftSidebar(props) {
                     onKeyDown={(event) => {
                         if (event.key === 'Enter') {
                             // handleGetLatLon(locationSearch)
-                            // dispatch(searchByLocation(locationSearch))
+                            dispatch(setNameCity(locationSearch))
+                            setNameLocal(event.target.value)
                             setLocationSearch('')
                             event.preventDefault()
                         }
