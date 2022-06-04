@@ -5,10 +5,11 @@ import Week from './Week';
 import Hour from './Hour';
 import LeftSidebar from '../components/leftSidebar/LeftSidebar';
 import weatherApi from '../api/weatherApi';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchDataWeather } from '../app/weatherSlice';
 
 function Dashboard(props) {
+    const dataError = useSelector(state => state.weather.error);
     const [tab, SetTab] = useState('today')
     const handleChangeTab = (data) => {
         SetTab(data)
@@ -34,6 +35,7 @@ function Dashboard(props) {
                 <LeftSidebar />
             </div>
             <div className="right-content">
+                {dataError && (<div className="alert-danger">{dataError}</div>)}
                 <Menu currentTab={tab} handleChangeTab={handleChangeTab} />
                 {
                     tab === 'today' && (

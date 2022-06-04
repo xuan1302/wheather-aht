@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import imgTT from '../../asset/images/download.png'
 import imgBg from '../../asset/images/vector.png'
 import moment from 'moment';
-import { searchByLocation, setErrorSearch, setNameCity } from '../../app/weatherSlice';
+import { getDataWeather, searchByLocation, setErrorSearch, setNameCity } from '../../app/weatherSlice';
 import weatherApi from '../../api/weatherApi';
 
 
 function LeftSidebar(props) {
 
     const [locationSearch, setLocationSearch] = useState('');
-    const [nameLocal, setNameLocal] = useState('Ha Noi');
+    const [nameLocal, setNameLocal] = useState('Hanoi');
     const [latLon, setLatLon] = useState(
         { lon: 105.8412, lat: 21.0245 }
     )
@@ -20,16 +20,35 @@ function LeftSidebar(props) {
     const dispatch = useDispatch();
     const nameCity = useSelector(state => state.weather.nameCity);
     const data = useSelector(state => state.weather.data);
+    // useEffect(() => {
+    //     (
+    //         async () => {
+    //             try {
+    //                 const { coord, name } = await weatherApi.searchLocation(nameLocal);
+    //                 console.log(name)
+    //                 dispatch(setNameCity(name))
+    //                 setLatLon(coord)
+    //             } catch (error) {
+    //                 console.log()
+    //                 // dispatch(setErrorSearch)
+    //             }
+    //         }
+    //     )();
+    // }, [nameLocal])
+
     useEffect(() => {
         (
             async () => {
                 try {
-                    const { coord } = await weatherApi.searchLocation(nameLocal);
-                    console.log(coord)
-                    setLatLon(coord)
+                    const action = getDataWeather(nameLocal);
+                    const data = await dispatch(action)
+                    if (!data.error) {
+                        dispatch(setNameCity(data.payload.name))
+                        setLatLon(data.payload.coord)
+                    }
+                    console.log(data)
                 } catch (error) {
-                    console.log()
-                    // dispatch(setErrorSearch)
+                    console.log(error)
                 }
             }
         )();
@@ -54,8 +73,6 @@ function LeftSidebar(props) {
                     onChange={handleTextChange}
                     onKeyDown={(event) => {
                         if (event.key === 'Enter') {
-                            // handleGetLatLon(locationSearch)
-                            dispatch(setNameCity(locationSearch))
                             setNameLocal(event.target.value)
                             setLocationSearch('')
                             event.preventDefault()

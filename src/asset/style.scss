@@ -195,3 +195,13 @@ font-size: 22px;
         margin: 0;
     }
 }
+.alert-danger{
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+    color: #842029;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    position: relative;
+}

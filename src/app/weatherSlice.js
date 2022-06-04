@@ -1,5 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import weatherApi from "../api/weatherApi";
 
+
+export const getDataWeather = createAsyncThunk('weather/getData', async (payload) => {
+    //calllapi
+    const data = await weatherApi.searchLocation(payload);
+    //return
+    return data;
+});
 
 const weatherSlice = createSlice({
     name: 'weather',
@@ -19,10 +27,18 @@ const weatherSlice = createSlice({
         setNameCity(state, action) {
             state.nameCity = action.payload;
         },
-        // setErrorSearch(state, action) {
-        //     state.error = 'Lỗi';
-        // }
+        setErrorSearch(state, action) {
+            state.error = 'Not found city';
+        }
     },
+    extraReducers: {
+        [getDataWeather.fulfilled]: (state, action) => {
+            state.error = '';
+        },
+        [getDataWeather.rejected]: (state, action) => {
+            state.error = 'Not found city';
+        }
+    }
 });
 
 const { actions, reducer } = weatherSlice;
