@@ -17,18 +17,18 @@ function Dashboard(props) {
     const dispatch = useDispatch();
 
 
-    useEffect(() => {
-        (
-            async () => {
-                try {
-                    const data = await weatherApi.defaultWeather(21.0245, 105.8412);
-                    dispatch(fetchDataWeather(data))
-                } catch (error) {
-                    console.log()
-                }
-            }
-        )();
-    }, [])
+    // useEffect(() => {
+    //     (
+    //         async () => {
+    //             try {
+    //                 const data = await weatherApi.defaultWeather(21.0245, 105.8412);
+    //                 dispatch(fetchDataWeather(data))
+    //             } catch (error) {
+    //                 console.log()
+    //             }
+    //         }
+    //     )();
+    // }, [])
     return (
         <div className='dashboard-weather'>
             <div className="left-sidebar">
