@@ -21,18 +21,14 @@ function LeftSidebar(props) {
     const data = useSelector(state => state.weather.data);
 
 
-    const handleSearch = async (value) => {
-        try {
-            const action = getDataWeather(value);
-            const dataSearch = await dispatch(action);
-            console.log(dataSearch)
-            if (!dataSearch.error) {
-                dispatch(setNameCity(dataSearch.payload.name))
-                setLatLon(dataSearch.payload.coord)
-            }
-        } catch (error) {
-            console.log(error)
-        }
+
+    const handleSearch = (value) => {
+        dispatch(getDataWeather(value)).then((originalResult) => {
+            dispatch(setNameCity(originalResult.payload.name));
+            setLatLon(originalResult.payload.coord)
+        }).catch((rejectedValue) => {
+            console.log(rejectedValue)
+        })
     }
 
     useEffect(() => {
