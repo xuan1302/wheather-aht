@@ -4,9 +4,7 @@ import Today from './Today';
 import Week from './Week';
 import Hour from './Hour';
 import LeftSidebar from '../components/leftSidebar/LeftSidebar';
-import weatherApi from '../api/weatherApi';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchDataWeather } from '../app/weatherSlice';
+import { useSelector } from 'react-redux';
 
 function Dashboard(props) {
     const dataError = useSelector(state => state.weather.error);
@@ -14,21 +12,6 @@ function Dashboard(props) {
     const handleChangeTab = (data) => {
         SetTab(data)
     }
-    const dispatch = useDispatch();
-
-
-    // useEffect(() => {
-    //     (
-    //         async () => {
-    //             try {
-    //                 const data = await weatherApi.defaultWeather(21.0245, 105.8412);
-    //                 dispatch(fetchDataWeather(data))
-    //             } catch (error) {
-    //                 console.log()
-    //             }
-    //         }
-    //     )();
-    // }, [])
     return (
         <div className='dashboard-weather'>
             <div className="left-sidebar">

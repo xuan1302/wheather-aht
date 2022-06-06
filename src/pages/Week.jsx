@@ -7,9 +7,7 @@ import classnames from 'classnames';
 function Week(props) {
 
     const dataWeather = useSelector(state => state.weather.data[0].daily);
-    console.log(dataWeather)
     const [itemWeek, setItemWeek] = useState(dataWeather && dataWeather[0]);
-    console.log(itemWeek)
 
     const handleClick = (dataWeek, index) => {
         setItemWeek(dataWeek);
@@ -23,7 +21,6 @@ function Week(props) {
                         dataWeather.length > 0 && (
                             dataWeather.map((dataWeek, index) =>
                                 <div key={index} className="item " onClick={() => handleClick(dataWeek, index)}>
-                                    {/* <div className={`${timeEl.dt === item.dt ? 'bg-info' : 'bg-white'} item-info`}> */}
                                     <div className={classnames({
                                         'item-info': true,
                                         'active': dataWeek.dt === itemWeek.dt

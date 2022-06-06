@@ -38,13 +38,13 @@ function Hour(props) {
         labels,
         datasets: [
             {
-                label: 'Temp(*C)',
+                label: 'Temp(°C)',
                 data: labels.map((data, ind) => dataWeather[0].hourly[ind].temp),
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
             {
-                label: 'Feel like(*C)',
+                label: 'Feel like(°C)',
                 data: labels.map((data, ind) => dataWeather[0].hourly[ind].feels_like),
                 borderColor: 'rgb(53, 162, 235)',
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',

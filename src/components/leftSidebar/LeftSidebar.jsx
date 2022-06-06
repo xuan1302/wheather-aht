@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import imgTT from '../../asset/images/download.png'
 import imgBg from '../../asset/images/vector.png'
 import moment from 'moment';
-import { fetchDataWeather, getDataWeather, searchByLocation, setErrorSearch, setNameCity } from '../../app/weatherSlice';
+import { fetchDataWeather, getDataWeather, searchByLocation, setNameCity } from '../../app/weatherSlice';
 import weatherApi from '../../api/weatherApi';
 
 
@@ -39,7 +39,7 @@ function LeftSidebar(props) {
                     dispatch(searchByLocation(dataSearch))
                     dispatch(fetchDataWeather(data))
                 } catch (error) {
-                    console.log()
+                    console.log(error)
                 }
             }
         )();
