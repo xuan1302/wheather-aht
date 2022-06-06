@@ -13,7 +13,7 @@ const weatherSlice = createSlice({
     name: 'weather',
     initialState: {
         data: [],
-        nameCity: '',
+        nameCity: 'Ha Noi',
         error: ''
     },
     reducers: {

@@ -10,7 +10,6 @@ import weatherApi from '../../api/weatherApi';
 function LeftSidebar(props) {
 
     const [locationSearch, setLocationSearch] = useState('');
-    const [nameLocal, setNameLocal] = useState('Hanoi');
     const [latLon, setLatLon] = useState(
         { lon: 105.8412, lat: 21.0245 }
     )
@@ -20,39 +19,21 @@ function LeftSidebar(props) {
     const dispatch = useDispatch();
     const nameCity = useSelector(state => state.weather.nameCity);
     const data = useSelector(state => state.weather.data);
-    // useEffect(() => {
-    //     (
-    //         async () => {
-    //             try {
-    //                 const { coord, name } = await weatherApi.searchLocation(nameLocal);
-    //                 console.log(name)
-    //                 dispatch(setNameCity(name))
-    //                 setLatLon(coord)
-    //             } catch (error) {
-    //                 console.log()
-    //                 // dispatch(setErrorSearch)
-    //             }
-    //         }
-    //     )();
-    // }, [nameLocal])
 
-    useEffect(() => {
-        (
-            async () => {
-                try {
-                    const action = getDataWeather(nameLocal);
-                    const data = await dispatch(action)
-                    if (!data.error) {
-                        dispatch(setNameCity(data.payload.name))
-                        setLatLon(data.payload.coord)
-                    }
-                    console.log(data)
-                } catch (error) {
-                    console.log(error)
-                }
+
+    const handleSearch = async (value) => {
+        try {
+            const action = getDataWeather(value);
+            const dataSearch = await dispatch(action);
+            console.log(dataSearch)
+            if (!dataSearch.error) {
+                dispatch(setNameCity(dataSearch.payload.name))
+                setLatLon(dataSearch.payload.coord)
             }
-        )();
-    }, [nameLocal])
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     useEffect(() => {
         (
@@ -74,7 +55,7 @@ function LeftSidebar(props) {
                     onChange={handleTextChange}
                     onKeyDown={(event) => {
                         if (event.key === 'Enter') {
-                            setNameLocal(event.target.value)
+                            handleSearch(locationSearch)
                             setLocationSearch('')
                             event.preventDefault()
                         }
