@@ -62,7 +62,8 @@ function LeftSidebar(props) {
                     }}
                 />
             </form>
-            <img src={imgTT} alt="" />
+            
+            <img src={`https://openweathermap.org/img/w/${data[0]?.current?.weather[0]?.icon}.png`} alt="" style={{width:'80px'}} />
             <div className="title-city">{nameCity}</div>
             <div className="title-temp">{Math.round(data[0]?.current?.temp)} °C</div>
             <div className="title-date">{moment.unix(data[0]?.current?.dt).format('dddd, h:mm a')}</div>
