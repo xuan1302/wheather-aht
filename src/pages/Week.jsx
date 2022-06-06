@@ -47,7 +47,7 @@ function Week(props) {
                         <div className="content-item">
                             <div className="item">
                                 <p className="item-text">Temp current : {Math.round(itemWeek && itemWeek.temp.day)} °C</p>
-                                <p className="item-text">Temp :  {itemWeek && itemWeek.temp && itemWeek.temp.min} °C - {itemWeek && itemWeek.temp && itemWeek.temp.max} - °C</p>
+                                <p className="item-text">Temp :  {itemWeek && itemWeek.temp && itemWeek.temp.min} °C - {itemWeek && itemWeek.temp && itemWeek.temp.max} °C</p>
                                 <p className="item-text">Humidity : {itemWeek && itemWeek.humidity}  %</p>
                                 <p className="item-text">Wind speed : {itemWeek && itemWeek.wind_speed} km/h</p>
                             </div>
