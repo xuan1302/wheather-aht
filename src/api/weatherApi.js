@@ -7,7 +7,7 @@ const weatherApi = {
     },
     searchLocation(data) {
         const url = `/weather?q=${data}&units=metric&APPID=${API_APPID}`;
-        return axiosClient.post(url);
+        return axiosClient.get(url);
     },
 }
 
