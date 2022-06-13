@@ -37,7 +37,7 @@ function LeftSidebar(props) {
                 try {
                     const dataSearch = await weatherApi.defaultWeather(latLon.lat, latLon.lon);
                     dispatch(searchByLocation(dataSearch))
-                    dispatch(fetchDataWeather(data))
+                    // dispatch(fetchDataWeather(data))
                 } catch (error) {
                     console.log(error)
                 }

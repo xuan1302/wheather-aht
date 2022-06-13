@@ -17,9 +17,9 @@ const weatherSlice = createSlice({
         error: ''
     },
     reducers: {
-        fetchDataWeather(state, action) {
-            state.data.push(action.payload);
-        },
+        // fetchDataWeather(state, action) {
+        //     state.data.push(action.payload);
+        // },
         searchByLocation(state, action) {
             state.data = [];
             state.data.push(action.payload);
